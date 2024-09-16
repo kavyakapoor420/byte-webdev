@@ -8,26 +8,26 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const axios = require('axios');
 const { Octokit } = require('@octokit/rest');
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
 
 // Configure Github Credentials
-const GITHUB_CLIENT_ID = 'Ov23liKUHoo3Cxk8DzDX';
-const GITHUB_CLIENT_SECRET = '344d0d14ab8e68d3b234d7127baa13fd10ac5d04';
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 // Configure Google Credentials
-const GOOGLE_CLIENT_ID = '130054163106-1aicss44megmnn6irggit876lrme1h4f.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
-const CHANNEL_ID = 'UCgIzTPYitha6idOdrr7M8sQ';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const CHANNEL_ID = process.env.CHANNEL_ID;
 
 // set up passport.js
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:8000/auth/google/callback',
+    callbackURL: process.env.CALLBACK_URL_GOOGLE,
     scope: ['https://www.googleapis.com/auth/youtube.readonly']
 }, (accessToken, refreshToken, profile, done) => {
     profile.accessToken = accessToken;
@@ -38,7 +38,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GithubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: 'http://localhost:8000/auth/github/callback',
+    callbackURL: process.env.CALLBACK_URL_GITHUB,
     },
     (accessToken, refreshToken, profile, done) => {
         profile.accessToken = accessToken;
