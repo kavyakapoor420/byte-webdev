@@ -65,7 +65,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/login_screen.html'));
+    res.sendFile(path.join(__dirname, '../public/login_screen.html'));
 });
 
 // Routes for Google Login
