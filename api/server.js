@@ -12,7 +12,7 @@ const port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Configure Github Credentials
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
