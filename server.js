@@ -64,10 +64,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/login_screen.html'));
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve HTML files directly
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/login_screen.html'));
+});
 // Routes for Google Login
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['openid', 'profile', 'email', 'https://www.googleapis.com/auth/youtube.readonly'] }));
